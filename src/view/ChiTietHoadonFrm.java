@@ -34,16 +34,16 @@ public class ChiTietHoadonFrm extends javax.swing.JFrame {
         tableModel = (DefaultTableModel) tblDVLK.getModel();
         tblDVLK.getTableHeader().setFont(new Font("courier new", Font.PLAIN, 12));
         tableModel.getDataVector().removeAllElements();
-       
+
         for (ChiTietDVLKSudung dvlkSudung : listDVLK) {
             tableModel.addRow(dvlkSudung.toObject());
-          
+
         }
-       long tongTien = 0L;
-        for(int i=0;i<tableModel.getRowCount();i++){
+        long tongTien = 0L;
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
             tongTien += Long.parseLong(tableModel.getValueAt(i, 4).toString());
         }
-        
+
         thongtinKH = new KhachHang();
         thongtinKH = chitietHoadonDAO.getThongTinKH(maKH);
         tfTenKH.setText(thongtinKH.getTenKH());
@@ -52,8 +52,15 @@ public class ChiTietHoadonFrm extends javax.swing.JFrame {
         tfTenXe.setText(tenXe);
         tfMaHD.setText(maHD);
         tfNgayNhan.setText(ngayNhan);
-        tfTongTien.setText(tongTien+"");
+        tfTongTien.setText(tongTien + "");
+        
+        setGaravity();
 
+    }
+
+    private void setGaravity() {
+        this.pack();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -246,14 +253,13 @@ public class ChiTietHoadonFrm extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-     this.dispose();
-        
+        this.dispose();
+
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

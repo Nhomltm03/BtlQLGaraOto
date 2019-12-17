@@ -24,7 +24,12 @@ public class ThongKeDoanhThuThangFrm extends javax.swing.JFrame {
         for (DoanhThuThang dtThang : listDoanhThu) {
             tableModel.addRow(dtThang.toObject());
         }
+        setGaravity();
+    }
 
+    private void setGaravity() {
+        this.pack();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

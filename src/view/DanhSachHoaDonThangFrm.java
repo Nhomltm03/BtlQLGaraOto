@@ -23,8 +23,6 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
     private ArrayList<HoaDonTrongThang> listHoadon;
     private final DanhSachHoaDonThangDAO dsHdDAO;
     private DefaultTableModel tableModel;
-//    public ArrayList<String> listMaKH;
-//    public ArrayList<String> listTenXe;
 
     public DanhSachHoaDonThangFrm(String numQuery) {
         initComponents();
@@ -36,10 +34,15 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
         tableModel.getDataVector().removeAllElements();
         for (HoaDonTrongThang dsHd : listHoadon) {
             tableModel.addRow(dsHd.toObject());
-//            listMaKH.add(dsHd.getMaKH());
-//            listTenXe.add(dsHd.getDongXe());
         }
 
+        setGaravity();
+
+    }
+
+    private void setGaravity() {
+        this.pack();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -140,12 +143,13 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
         int check = tblDanhSachHDThang.getSelectedRow();
 
         String maHD = tableModel.getValueAt(check, 0).toString();
-        String maKH = tableModel.getValueAt(check,2).toString();
-        String tenXe = tableModel.getValueAt(check,4).toString();
+        String maKH = tableModel.getValueAt(check, 2).toString();
+        String tenXe = tableModel.getValueAt(check, 4).toString();
         String ngayNhan = tableModel.getValueAt(check, 1).toString();
-        ChiTietHoadonFrm chiTietHoadonFrm = new ChiTietHoadonFrm(maHD,maKH, tenXe, ngayNhan);
-    
+        ChiTietHoadonFrm chiTietHoadonFrm = new ChiTietHoadonFrm(maHD, maKH, tenXe, ngayNhan);
+
         chiTietHoadonFrm.setVisible(true);
+
 
     }//GEN-LAST:event_tblDanhSachHDThangMouseClicked
 
