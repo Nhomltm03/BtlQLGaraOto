@@ -76,7 +76,7 @@ public class HoaDonTrongThang {
     }
 
     public Object[] toObject() {
-        return new Object[]{maHD, ngayThanhToan, tenKH, dongXe, tongDVLK, tongTien};
+        return new Object[]{maHD, ngayThanhToan, maKH, tenKH, dongXe, tongDVLK, tongTien};
 
     }
 

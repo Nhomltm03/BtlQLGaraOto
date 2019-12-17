@@ -23,6 +23,11 @@ public class ChitietHoadonDAO extends DAO {
     private static final String COL_SO_LUONG_DV_LK = "soLuong";
     private static final String COL_DON_GIA_DV_LK = "donGia";
     private static final String COL_TONG_TIEN_DV_LK = "soTien";
+    
+    private static final String COL_TEN_KH = "tenKH";
+    private static final String COL_SDT_KH = "sdt";
+    private static final String COL_DC_KH = "diaChi";
+    private static final String COL_NOTE_KH = "ghiChu";
 
     public ChitietHoadonDAO() {
         super();
@@ -32,22 +37,23 @@ public class ChitietHoadonDAO extends DAO {
 
         KhachHang thongtinKh = new KhachHang();
 
-        String query = "";
+        String query = "select kh.*,oto.dongXe\n"
+                + "FROM tbloto oto\n"
+                + "inner JOIN tblkhachhang kh\n"
+                + "ON oto.maKH = kh.maKH\n"
+                + "WHERE oto.maOto = "+maKH+"\n"
+                + ";";
 
         try {
             PreparedStatement ps = connectionToDB.prepareStatement(query);
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-//                    HoaDonTrongThang hdThang = new HoaDonTrongThang();
-//                    hdThang.setMaHD(rs.getString(COL_MA_HD));
-//                    hdThang.setNgayThanhToan(rs.getString(COL_NGAY));
-//                    hdThang.setMaKH(rs.getString(COL_MA_KH));
-//                    hdThang.setTenKH(rs.getString(COL_TEN_KH));
-//                    hdThang.setDongXe(rs.getString(COL_TEN_XE));
-//                    hdThang.setTongDVLK(rs.getString(COL_TONG_DV_LK));
-//                    hdThang.setTongTien(rs.getString(COL_TONG_TIEN));
-//                    listHDTrongThang.add(hdThang);
+                    thongtinKh.setMaKH(Integer.parseInt(maKH));
+                    thongtinKh.setTenKH(rs.getString(COL_TEN_KH));
+                    thongtinKh.setSdt(rs.getString(COL_SDT_KH));
+                    thongtinKh.setDiaChi(rs.getString(COL_DC_KH));
+                    thongtinKh.setGhiChu(rs.getString(COL_NOTE_KH));
                 }
             }
         } catch (SQLException ex) {
