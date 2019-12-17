@@ -11,6 +11,39 @@ import java.io.Serializable;
  *
  * @author admin
  */
-public class DichVuLinhKien implements  Serializable{
-    
+public class DichVuLinhKien implements Serializable {
+
+    private int maDVLK;
+    private String tenDVKL;
+    private double donGia;
+
+    public int getMaDVLK() {
+        return maDVLK;
+    }
+
+    public void setMaDVLK(int maDVLK) {
+        this.maDVLK = maDVLK;
+    }
+
+    public String getTenDVKL() {
+        return tenDVKL;
+    }
+
+    public void setTenDVKL(String tenDVKL) {
+        this.tenDVKL = tenDVKL;
+    }
+
+    public double getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(double donGia) {
+        this.donGia = donGia;
+    }
+
+    public Object[] toObject() {
+        return new Object[]{maDVLK, tenDVKL, donGia};
+
+    }
+
 }

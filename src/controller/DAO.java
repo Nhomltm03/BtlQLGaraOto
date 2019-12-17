@@ -23,9 +23,7 @@ public class DAO {
 
     public DAO() {
         if(connectionToDB == null){
-//            String dbUrl = "jdbc:mariadb://localhost:3306/gara";
-//            String dbClass = "org.mariadb.jdbc.Driver";
-           
+
             try {
                 Class.forName(DB_CLASS_NAME);
                 connectionToDB = DriverManager.getConnection (DB_URL, DB_USER, DB_PASSWORD);

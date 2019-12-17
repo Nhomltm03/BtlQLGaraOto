@@ -1,36 +1,32 @@
-
 package view;
 
 import controller.ThongKeDoanhThuThangDAO;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import model.DoanhThuThang;
 
 public class ThongKeDoanhThuThangFrm extends javax.swing.JFrame {
 
-    ArrayList<DoanhThuThang> listDoanhThu;
-    ThongKeDoanhThuThangDAO tkDao;
-    DefaultTableModel tableModel;
-    ArrayList<String> arrayRow;
-    
-    
+    private ArrayList<DoanhThuThang> listDoanhThu;
+    private final ThongKeDoanhThuThangDAO tkDao;
+    private DefaultTableModel tableModel;
+
     public ThongKeDoanhThuThangFrm() {
-        
+
         initComponents();
         listDoanhThu = new ArrayList<>();
         tkDao = new ThongKeDoanhThuThangDAO();
         listDoanhThu = tkDao.getDoanhThuThang();
-        tableModel = (DefaultTableModel)tblDoanhThuThang.getModel();
+        tableModel = (DefaultTableModel) tblDoanhThuThang.getModel();
+        tblDoanhThuThang.getTableHeader().setFont(new Font("courier new", Font.PLAIN, 12));
         tableModel.getDataVector().removeAllElements();
-//        String[] columnName ={COL_NAME_THANG,COL_NAME_DOANH_THU};
-//        tableModel.setColumnIdentifiers(columnName);
-        for (DoanhThuThang dtThang: listDoanhThu) {
-           tableModel.addRow(dtThang.toObject());
+        for (DoanhThuThang dtThang : listDoanhThu) {
+            tableModel.addRow(dtThang.toObject());
         }
-     
+
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -41,6 +37,7 @@ public class ThongKeDoanhThuThangFrm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tblDoanhThuThang.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         tblDoanhThuThang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -55,6 +52,11 @@ public class ThongKeDoanhThuThangFrm extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblDoanhThuThang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDoanhThuThangMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblDoanhThuThang);
@@ -88,22 +90,22 @@ public class ThongKeDoanhThuThangFrm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblDoanhThuThangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoanhThuThangMouseClicked
+        // TODO add your handling code here:
+
+        tableModel = (DefaultTableModel) tblDoanhThuThang.getModel();
+        int check = tblDoanhThuThang.getSelectedRow();
+
+        String numQuery = tableModel.getValueAt(check, 0).toString();
+        DanhSachHoaDonThangFrm dsHDJFrame = new DanhSachHoaDonThangFrm(numQuery);
+        this.dispose();
+        dsHDJFrame.setVisible(true);
+
+
+    }//GEN-LAST:event_tblDoanhThuThangMouseClicked
+
     public static void main(String args[]) {
- 
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ThongKeDoanhThuThangFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//
-//        java.awt.EventQueue.invokeLater(() -> {
-//            new ThongKeDoanhThuThangFrm().setVisible(true);
-//        });
+
         java.awt.EventQueue.invokeLater(() -> {
             new ThongKeDoanhThuThangFrm().setVisible(true);
         });

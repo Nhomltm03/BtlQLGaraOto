@@ -15,37 +15,41 @@ import model.DoanhThuThang;
  *
  * @author admin
  */
-public class ThongKeDoanhThuThangDAO extends DAO{
-    
+public class ThongKeDoanhThuThangDAO extends DAO {
+
     private static final String COL_THANG = "thang";
     private static final String COL_DOANH_THU = "doanhThu";
 
     public ThongKeDoanhThuThangDAO() {
-           super();
+        super();
     }
-    
-    public ArrayList<DoanhThuThang>  getDoanhThuThang(){
+
+    public ArrayList<DoanhThuThang> getDoanhThuThang() {
         ArrayList<DoanhThuThang> listDoanhThuThang = new ArrayList<>();
-        
-        String query = "select date(hd.ngayThanhToan) as thang, sum(hd.tongTien) as doanhThu\n" 
-                +"from tblhoadon hd\n" 
-                +"group by thang ORDER BY DATE(hd.ngayThanhToan) DESC";
-        
-            try{
+
+        String query = "select month(hd.ngayThanhToan) as thang, sum(dd.soLuong* dv.donGia) as doanhthu\n"
+                + "from tblhoadon hd\n"
+                + "inner join tbldichvulinhkiendadung dd\n"
+                + "on hd.maHoaDon = dd.maHoaDon\n"
+                + "inner join tbldichvulinkkien dv\n"
+                + "on dd.maDVLK = dv.maDVLK\n"
+                + "group by thang ORDER BY DATE(hd.ngayThanhToan) DESC;";
+
+        try {
             PreparedStatement ps = connectionToDB.prepareStatement(query);
-       
+
             try (ResultSet rs = ps.executeQuery()) {
-                while(rs.next()){
-                   DoanhThuThang doanhThuThang = new DoanhThuThang();
-                   doanhThuThang.setTenThang(rs.getString(COL_THANG));
-                   doanhThuThang.setTongDoanhThuThang(Integer.parseInt(rs.getString(COL_DOANH_THU)));
-                   listDoanhThuThang.add(doanhThuThang);
+                while (rs.next()) {
+                    DoanhThuThang doanhThuThang = new DoanhThuThang();
+                    doanhThuThang.setTenThang(rs.getString(COL_THANG));
+                    doanhThuThang.setTongDoanhThuThang(rs.getString(COL_DOANH_THU));
+                    listDoanhThuThang.add(doanhThuThang);
                 }
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.getMessage();
-        }    
+        }
         return listDoanhThuThang;
     }
-    
+
 }

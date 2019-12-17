@@ -11,9 +11,10 @@ import java.io.Serializable;
  *
  * @author admin
  */
-public class DoanhThuThang implements Serializable{
+public class DoanhThuThang implements Serializable {
+
     private String tenThang;
-    private int tongDoanhThuThang;
+    private String tongDoanhThuThang;
 
     public String getTenThang() {
         return tenThang;
@@ -23,21 +24,17 @@ public class DoanhThuThang implements Serializable{
         this.tenThang = tenThang;
     }
 
-    public int getTongDoanhThuThang() {
+    public String getTongDoanhThuThang() {
         return tongDoanhThuThang;
     }
 
-    public void setTongDoanhThuThang(int tongDoanhThuThang) {
-        this.tongDoanhThuThang = tongDoanhThuThang;
+    public void setTongDoanhThuThang(String tongDoanhThuThang) {
+       this.tongDoanhThuThang = tongDoanhThuThang;
     }
-    
-    
-    
+
     public Object[] toObject() {
-        return new Object[]{tenThang,tongDoanhThuThang};
-       
+        return new Object[]{tenThang, tongDoanhThuThang};
+
     }
-    
-    
-    
+
 }
