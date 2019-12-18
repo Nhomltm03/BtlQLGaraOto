@@ -23,7 +23,7 @@ public class ChitietHoadonDAO extends DAO {
     private static final String COL_SO_LUONG_DV_LK = "soLuong";
     private static final String COL_DON_GIA_DV_LK = "donGia";
     private static final String COL_TONG_TIEN_DV_LK = "soTien";
-    
+
     private static final String COL_TEN_KH = "tenKH";
     private static final String COL_SDT_KH = "sdt";
     private static final String COL_DC_KH = "diaChi";
@@ -37,11 +37,11 @@ public class ChitietHoadonDAO extends DAO {
 
         KhachHang thongtinKh = new KhachHang();
 
-        String query = "select kh.*,oto.dongXe\n"
-                + "FROM tbloto oto\n"
-                + "inner JOIN tblkhachhang kh\n"
+        String query = "select kh.*, oto.dongXe\n"
+                + "FROM tblkhachhang kh\n"
+                + "inner JOIN tbloto oto\n"
                 + "ON oto.maKH = kh.maKH\n"
-                + "WHERE oto.maOto = "+maKH+"\n"
+                + "WHERE kh.maKH = "+maKH+"\n"
                 + ";";
 
         try {

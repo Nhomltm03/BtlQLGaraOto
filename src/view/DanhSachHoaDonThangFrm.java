@@ -67,11 +67,11 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã hóa đơn", "Ngày thanh toán", "Mã Khách Hàng", "Tên Khách Hàng", "Tên xe", "Tổng Dv/Lk", "Tổng tiền"
+                "Mã hóa đơn", "Ngày thanh toán", "Tên Khách Hàng", "Tên xe", "Tổng Dv/Lk", "Tổng tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -85,11 +85,11 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblDanhSachHDThang);
 
-        jLabel1.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         jLabel1.setText("Danh sách chi tiết hóa đơn trong tháng");
 
         btnBack.setBackground(new java.awt.Color(255, 255, 255));
-        btnBack.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
+        btnBack.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         btnBack.setForeground(new java.awt.Color(0, 0, 0));
         btnBack.setText("Trở lại");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -102,29 +102,26 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 321, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(345, 345, 345))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(224, 224, 224))))
+                .addGap(389, 389, 389)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(381, 381, 381))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(277, 277, 277)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(268, 268, 268))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
+                .addComponent(btnBack)
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -143,8 +140,8 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
         int check = tblDanhSachHDThang.getSelectedRow();
 
         String maHD = tableModel.getValueAt(check, 0).toString();
-        String maKH = tableModel.getValueAt(check, 2).toString();
-        String tenXe = tableModel.getValueAt(check, 4).toString();
+        String maKH = listHoadon.get(check).getMaKH();
+        String tenXe = tableModel.getValueAt(check, 3).toString();
         String ngayNhan = tableModel.getValueAt(check, 1).toString();
         ChiTietHoadonFrm chiTietHoadonFrm = new ChiTietHoadonFrm(maHD, maKH, tenXe, ngayNhan);
 
