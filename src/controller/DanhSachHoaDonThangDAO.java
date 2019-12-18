@@ -33,13 +33,9 @@ public class DanhSachHoaDonThangDAO extends DAO {
         super();
     }
 
-
     public ArrayList<Hoadon> getDanhSachHoadonTrongThang(String numQuery) {
         ArrayList<Hoadon> listHoadon = new ArrayList<>();
-        Oto oto = new Oto();
-        KhachHang khachHang = new KhachHang(oto);
-        DichVuLinhKien dichVuLinhKien = new DichVuLinhKien();
-        DVLKSudung dVLKSudung = new DVLKSudung(dichVuLinhKien);
+
         String query = "select hd.maHoaDon, hd.ngayThanhToan, kh.*,"
                 + " oto.dongXe,sum(dd.soLuong)tongDVLK,"
                 + " sum(dd.soLuong* dv.donGia) AS tongTien\n"
@@ -61,6 +57,10 @@ public class DanhSachHoaDonThangDAO extends DAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
+                    Oto oto = new Oto();
+                    KhachHang khachHang = new KhachHang(oto);
+                    DichVuLinhKien dichVuLinhKien = new DichVuLinhKien();
+                    DVLKSudung dVLKSudung = new DVLKSudung(dichVuLinhKien);
                     Hoadon hd = new Hoadon(khachHang, dVLKSudung);
                     hd.setMaHD(Integer.parseInt(rs.getString(COL_MA_HD)));
                     hd.setNgayThanhtoan(rs.getString(COL_NGAY));
