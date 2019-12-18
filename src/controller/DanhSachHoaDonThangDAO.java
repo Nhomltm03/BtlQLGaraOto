@@ -9,7 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.HoaDonTrongThang;
+import model.DVLKSudung;
+import model.DichVuLinhKien;
+import model.Hoadon;
+import model.KhachHang;
+import model.Oto;
 
 /**
  *
@@ -29,10 +33,16 @@ public class DanhSachHoaDonThangDAO extends DAO {
         super();
     }
 
-    public ArrayList<HoaDonTrongThang> getDanhSachHoaDonThang(String numQuery) {
-        ArrayList<HoaDonTrongThang> listHDTrongThang = new ArrayList<>();
 
-        String query = "select hd.maHoaDon, hd.ngayThanhToan, kh.*, oto.dongXe,sum(dd.soLuong)tongDVLK, sum(dd.soLuong* dv.donGia) AS tongTien\n"
+    public ArrayList<Hoadon> getDanhSachHoadonTrongThang(String numQuery) {
+        ArrayList<Hoadon> listHoadon = new ArrayList<>();
+        Oto oto = new Oto();
+        KhachHang khachHang = new KhachHang(oto);
+        DichVuLinhKien dichVuLinhKien = new DichVuLinhKien();
+        DVLKSudung dVLKSudung = new DVLKSudung(dichVuLinhKien);
+        String query = "select hd.maHoaDon, hd.ngayThanhToan, kh.*,"
+                + " oto.dongXe,sum(dd.soLuong)tongDVLK,"
+                + " sum(dd.soLuong* dv.donGia) AS tongTien\n"
                 + "from tblhoadon hd\n"
                 + "inner join tbloto oto\n"
                 + "on hd.maOto = oto.maOto\n"
@@ -42,7 +52,7 @@ public class DanhSachHoaDonThangDAO extends DAO {
                 + "on hd.maHoaDon = dd.maHoaDon\n"
                 + "inner join tbldichvulinkkien dv\n"
                 + "on dd.maDVLK = dv.maDVLK\n"
-                + "where month(hd.ngayThanhToan) = "+numQuery+" \n"
+                + "where month(hd.ngayThanhToan) = " + numQuery + " \n"
                 + "group BY hd.maHoaDon \n"
                 + "ORDER BY DATE(hd.ngayThanhToan) DESC;";
 
@@ -51,21 +61,21 @@ public class DanhSachHoaDonThangDAO extends DAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    HoaDonTrongThang hdThang = new HoaDonTrongThang();
-                    hdThang.setMaHD(rs.getString(COL_MA_HD));
-                    hdThang.setNgayThanhToan(rs.getString(COL_NGAY));
-                    hdThang.setMaKH(rs.getString(COL_MA_KH));
-                    hdThang.setTenKH(rs.getString(COL_TEN_KH));
-                    hdThang.setDongXe(rs.getString(COL_TEN_XE));
-                    hdThang.setTongDVLK(rs.getString(COL_TONG_DV_LK));
-                    hdThang.setTongTien(rs.getString(COL_TONG_TIEN));
-                    listHDTrongThang.add(hdThang);
+                    Hoadon hd = new Hoadon(khachHang, dVLKSudung);
+                    hd.setMaHD(Integer.parseInt(rs.getString(COL_MA_HD)));
+                    hd.setNgayThanhtoan(rs.getString(COL_NGAY));
+                    khachHang.setMaKH(Integer.parseInt(rs.getString(COL_MA_KH)));
+                    khachHang.setTenKH(rs.getString(COL_TEN_KH));
+                    oto.setDongXe(rs.getString(COL_TEN_XE));
+                    dVLKSudung.setSoLuong(Integer.parseInt(rs.getString(COL_TONG_DV_LK)));
+                    dVLKSudung.setTongTien(Long.parseLong(rs.getString(COL_TONG_TIEN)));
+                    listHoadon.add(hd);
                 }
             }
         } catch (SQLException ex) {
             ex.getMessage();
         }
-        return listHDTrongThang;
+        return listHoadon;
     }
 
 }

@@ -18,7 +18,14 @@ public class KhachHang implements Serializable {
     private String sdt;
     private String diaChi;
     private String ghiChu;
+    private Oto oto;
 
+    public KhachHang(Oto oto) {
+
+        this.oto = oto;
+    }
+
+    
     public int getMaKH() {
         return maKH;
     }
@@ -59,8 +66,17 @@ public class KhachHang implements Serializable {
         this.ghiChu = ghiChu;
     }
 
+    public Oto getOto() {
+        return oto;
+    }
+
+    public void setOto(Oto oto) {
+        this.oto = oto;
+    }
+    
+
     public Object[] toObject() {
-        return new Object[]{maKH, tenKH, sdt, diaChi, ghiChu};
+        return new Object[]{maKH, tenKH, sdt, diaChi, ghiChu, oto.getDongXe()};
 
     }
 

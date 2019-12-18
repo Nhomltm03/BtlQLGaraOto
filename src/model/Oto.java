@@ -11,14 +11,13 @@ import java.io.Serializable;
  *
  * @author admin
  */
-public class Oto implements Serializable{
-    
-   private int maOto;
-   private String bienSo;
-   private String dongXe;
-   private String hangXe;
-   private String moTa;
-   private int maKH;
+public class Oto implements Serializable {
+
+    private int maOto;
+    private String bienSo;
+    private String dongXe;
+    private String hangXe;
+    private String moTa;
 
     public int getMaOto() {
         return maOto;
@@ -60,16 +59,7 @@ public class Oto implements Serializable{
         this.moTa = moTa;
     }
 
-    public int getMaKH() {
-        return maKH;
-    }
-
-    public void setMaKH(int maKH) {
-        this.maKH = maKH;
-    }
-   
-        public Object[] toObject() {
-        return new Object[]{maOto, bienSo, dongXe, hangXe, moTa, maKH};
-
+    public Object[] toObject() {
+        return new Object[]{maOto, bienSo, dongXe, hangXe, moTa};
     }
 }

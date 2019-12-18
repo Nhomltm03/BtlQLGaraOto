@@ -15,7 +15,7 @@ public class DichVuLinhKien implements Serializable {
 
     private int maDVLK;
     private String tenDVKL;
-    private double donGia;
+    private long donGia;
 
     public int getMaDVLK() {
         return maDVLK;
@@ -33,11 +33,11 @@ public class DichVuLinhKien implements Serializable {
         this.tenDVKL = tenDVKL;
     }
 
-    public double getDonGia() {
+    public long getDonGia() {
         return donGia;
     }
 
-    public void setDonGia(double donGia) {
+    public void setDonGia(long donGia) {
         this.donGia = donGia;
     }
 

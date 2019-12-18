@@ -9,8 +9,9 @@ import controller.ChitietHoadonDAO;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import model.ChiTietDVLKSudung;
+import model.DVLKSudung;
 import model.KhachHang;
+import model.Oto;
 
 /**
  *
@@ -21,21 +22,22 @@ public class ChiTietHoadonFrm extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietHoadonFrm
      */
-    private ArrayList<ChiTietDVLKSudung> listDVLK;
+    private ArrayList<DVLKSudung> listDVLKSudung;
     private final DefaultTableModel tableModel;
     private final ChitietHoadonDAO chitietHoadonDAO;
     private KhachHang thongtinKH;
+    private final Oto oto;
 
-    public ChiTietHoadonFrm(String maHD, String maKH, String tenXe, String ngayNhan) {
+    public ChiTietHoadonFrm(String maHD, String maKH, String ngayNhan) {
         initComponents();
-        listDVLK = new ArrayList<>();
         chitietHoadonDAO = new ChitietHoadonDAO();
-        listDVLK = chitietHoadonDAO.getListDVLKSudung(maHD);
+        listDVLKSudung = new ArrayList<>();
+        listDVLKSudung = chitietHoadonDAO.getListDVLKDadung(maHD);
         tableModel = (DefaultTableModel) tblDVLK.getModel();
         tblDVLK.getTableHeader().setFont(new Font("courier new", Font.PLAIN, 12));
         tableModel.getDataVector().removeAllElements();
 
-        for (ChiTietDVLKSudung dvlkSudung : listDVLK) {
+           for (DVLKSudung dvlkSudung : listDVLKSudung) {
             tableModel.addRow(dvlkSudung.toObject());
 
         }
@@ -43,13 +45,13 @@ public class ChiTietHoadonFrm extends javax.swing.JFrame {
         for (int i = 0; i < tableModel.getRowCount(); i++) {
             tongTien += Long.parseLong(tableModel.getValueAt(i, 4).toString());
         }
-
-        thongtinKH = new KhachHang();
+        oto = new Oto();
+        thongtinKH = new KhachHang(oto);
         thongtinKH = chitietHoadonDAO.getThongTinKH(maKH);
         tfTenKH.setText(thongtinKH.getTenKH());
         tfSDT.setText(thongtinKH.getSdt());
         tfDiaChi.setText(thongtinKH.getDiaChi());
-        tfTenXe.setText(tenXe);
+        tfTenXe.setText(thongtinKH.getOto().getDongXe());
         tfMaHD.setText(maHD);
         tfNgayNhan.setText(ngayNhan);
         tfTongTien.setText(tongTien + "");

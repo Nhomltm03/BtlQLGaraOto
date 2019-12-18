@@ -9,7 +9,7 @@ import controller.DanhSachHoaDonThangDAO;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import model.HoaDonTrongThang;
+import model.Hoadon;
 
 /**
  *
@@ -20,22 +20,23 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
     /**
      * Creates new form DanhSachHoaDonThangFrm
      */
-    private ArrayList<HoaDonTrongThang> listHoadon;
     private final DanhSachHoaDonThangDAO dsHdDAO;
     private DefaultTableModel tableModel;
+    private ArrayList<Hoadon> listHD;
 
     public DanhSachHoaDonThangFrm(String numQuery) {
         initComponents();
-        listHoadon = new ArrayList<>();
         dsHdDAO = new DanhSachHoaDonThangDAO();
-        listHoadon = dsHdDAO.getDanhSachHoaDonThang(numQuery);
+        listHD = new ArrayList<>();
+        listHD = dsHdDAO.getDanhSachHoadonTrongThang(numQuery);
         tableModel = (DefaultTableModel) tblDanhSachHDThang.getModel();
         tblDanhSachHDThang.getTableHeader().setFont(new Font("courier new", Font.PLAIN, 12));
         tableModel.getDataVector().removeAllElements();
-        for (HoaDonTrongThang dsHd : listHoadon) {
-            tableModel.addRow(dsHd.toObject());
-        }
 
+        for (Hoadon hd : listHD) {
+            tableModel.addRow(hd.toObject());
+        }
+        
         setGaravity();
 
     }
@@ -104,13 +105,13 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(389, 389, 389)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(381, 381, 381))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(277, 277, 277)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(268, 268, 268))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(347, 347, 347)
+                .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(366, 366, 366))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +121,7 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addGap(44, 44, 44)
-                .addComponent(btnBack)
+                .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(27, 27, 27))
         );
 
@@ -140,10 +141,9 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
         int check = tblDanhSachHDThang.getSelectedRow();
 
         String maHD = tableModel.getValueAt(check, 0).toString();
-        String maKH = listHoadon.get(check).getMaKH();
-        String tenXe = tableModel.getValueAt(check, 3).toString();
+        String maKH = listHD.get(check).getKhachHang().getMaKH()+"";
         String ngayNhan = tableModel.getValueAt(check, 1).toString();
-        ChiTietHoadonFrm chiTietHoadonFrm = new ChiTietHoadonFrm(maHD, maKH, tenXe, ngayNhan);
+        ChiTietHoadonFrm chiTietHoadonFrm = new ChiTietHoadonFrm(maHD, maKH, ngayNhan);
 
         chiTietHoadonFrm.setVisible(true);
 

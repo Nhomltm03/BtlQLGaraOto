@@ -9,8 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.ChiTietDVLKSudung;
+import model.DVLKSudung;
+import model.DichVuLinhKien;
 import model.KhachHang;
+import model.Oto;
 
 /**
  *
@@ -28,20 +30,20 @@ public class ChitietHoadonDAO extends DAO {
     private static final String COL_SDT_KH = "sdt";
     private static final String COL_DC_KH = "diaChi";
     private static final String COL_NOTE_KH = "ghiChu";
+    private static final String COL_TEN_XE = "dongXe";
 
     public ChitietHoadonDAO() {
         super();
     }
 
     public KhachHang getThongTinKH(String maKH) {
-
-        KhachHang thongtinKh = new KhachHang();
-
+        Oto oto = new Oto();
+        KhachHang thongtinKh = new KhachHang(oto);
         String query = "select kh.*, oto.dongXe\n"
                 + "FROM tblkhachhang kh\n"
                 + "inner JOIN tbloto oto\n"
                 + "ON oto.maKH = kh.maKH\n"
-                + "WHERE kh.maKH = "+maKH+"\n"
+                + "WHERE kh.maKH = " + maKH + "\n"
                 + ";";
 
         try {
@@ -49,6 +51,7 @@ public class ChitietHoadonDAO extends DAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
+                    oto.setDongXe(rs.getString(COL_TEN_XE));
                     thongtinKh.setMaKH(Integer.parseInt(maKH));
                     thongtinKh.setTenKH(rs.getString(COL_TEN_KH));
                     thongtinKh.setSdt(rs.getString(COL_SDT_KH));
@@ -62,8 +65,8 @@ public class ChitietHoadonDAO extends DAO {
         return thongtinKh;
     }
 
-    public ArrayList<ChiTietDVLKSudung> getListDVLKSudung(String maHD) {
-        ArrayList<ChiTietDVLKSudung> listDVLKSudung = new ArrayList<>();
+     public ArrayList<DVLKSudung> getListDVLKDadung(String maHD) {
+        ArrayList<DVLKSudung> listDVLKSudung = new ArrayList<>();
 
         String query = "select dd.maDVLK, dv.ten, dd.soLuong, dv.donGia, (dd.soLuong* dv.donGia) as soTien\n"
                 + "from tblhoadon hd\n"
@@ -78,11 +81,11 @@ public class ChitietHoadonDAO extends DAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    ChiTietDVLKSudung chiTietDVLKSudung = new ChiTietDVLKSudung();
-                    chiTietDVLKSudung.setMaDVLK(Integer.parseInt(rs.getString(COL_MA_DV_LK)));
-                    chiTietDVLKSudung.setMaHD(Integer.parseInt(maHD));
-                    chiTietDVLKSudung.setTenDVLK(rs.getString(COL_TEN_DV_LK));
-                    chiTietDVLKSudung.setGiaThanh(Long.parseLong(rs.getString(COL_DON_GIA_DV_LK)));
+                    DichVuLinhKien dichVuLinhKien = new DichVuLinhKien();
+                    DVLKSudung chiTietDVLKSudung = new DVLKSudung(dichVuLinhKien);
+                    dichVuLinhKien.setMaDVLK(Integer.parseInt(rs.getString(COL_MA_DV_LK)));
+                    dichVuLinhKien.setTenDVKL(rs.getString(COL_TEN_DV_LK));
+                    dichVuLinhKien.setDonGia(Long.parseLong(rs.getString(COL_DON_GIA_DV_LK)));
                     chiTietDVLKSudung.setSoLuong(Integer.parseInt(rs.getString(COL_SO_LUONG_DV_LK)));
                     chiTietDVLKSudung.setTongTien(Long.parseLong(rs.getString(COL_TONG_TIEN_DV_LK)));
                     listDVLKSudung.add(chiTietDVLKSudung);
@@ -93,5 +96,4 @@ public class ChitietHoadonDAO extends DAO {
         }
         return listDVLKSudung;
     }
-
 }
