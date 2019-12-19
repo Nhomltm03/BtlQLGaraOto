@@ -46,7 +46,13 @@ public class ThongKeDoanhThuThangDAOTest {
     public void testGetDoanhThuThang() {
         System.out.println("getDoanhThuThang");
         ThongKeDoanhThuThangDAO instance = new ThongKeDoanhThuThangDAO();
-        ArrayList<DoanhThuThang> expResult = null;
+        ArrayList<DoanhThuThang> expResult = new ArrayList<>();
+        for(int i =0 ;i<12;i++){
+            DoanhThuThang doanhThuThang = new DoanhThuThang();
+            doanhThuThang.setTenThang(i+"");
+            doanhThuThang.setTongDoanhThuThang(i*12000+"");
+            expResult.add(doanhThuThang);
+        }
         ArrayList<DoanhThuThang> result = instance.getDoanhThuThang();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
