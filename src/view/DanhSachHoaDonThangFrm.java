@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.DanhSachHoaDonThangDAO;
+import controller.DanhsachHoaDonThangDAO;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -20,13 +20,13 @@ public class DanhSachHoaDonThangFrm extends javax.swing.JFrame {
     /**
      * Creates new form DanhSachHoaDonThangFrm
      */
-    private final DanhSachHoaDonThangDAO dsHdDAO;
+    private final DanhsachHoaDonThangDAO dsHdDAO;
     private DefaultTableModel tableModel;
     private ArrayList<Hoadon> listHD;
 
     public DanhSachHoaDonThangFrm(String numQuery) {
         initComponents();
-        dsHdDAO = new DanhSachHoaDonThangDAO();
+        dsHdDAO = new DanhsachHoaDonThangDAO();
         listHD = new ArrayList<>();
         listHD = dsHdDAO.getDanhSachHoadonTrongThang(numQuery);
         tableModel = (DefaultTableModel) tblDanhSachHDThang.getModel();

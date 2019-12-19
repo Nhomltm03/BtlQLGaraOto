@@ -19,7 +19,7 @@ import model.Oto;
  *
  * @author admin
  */
-public class DanhSachHoaDonThangDAO extends DAO {
+public class DanhsachHoaDonThangDAO extends DAO {
 
     private static final String COL_MA_HD = "maHoaDon";
     private static final String COL_NGAY = "ngayThanhToan";
@@ -29,7 +29,7 @@ public class DanhSachHoaDonThangDAO extends DAO {
     private static final String COL_TONG_DV_LK = "tongDVLK";
     private static final String COL_TONG_TIEN = "tongTien";
 
-    public DanhSachHoaDonThangDAO() {
+    public DanhsachHoaDonThangDAO() {
         super();
     }
 
@@ -56,7 +56,7 @@ public class DanhSachHoaDonThangDAO extends DAO {
             PreparedStatement ps = connectionToDB.prepareStatement(query);
 
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
+                while (rs.next() ) {
                     Oto oto = new Oto();
                     KhachHang khachHang = new KhachHang(oto);
                     DichVuLinhKien dichVuLinhKien = new DichVuLinhKien();

@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author admin
  */
-public class DoanhThuThang implements Serializable {
+public class DoanhThuThang  implements Serializable {
 
     private String tenThang;
     private String tongDoanhThuThang;

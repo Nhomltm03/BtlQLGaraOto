@@ -15,7 +15,7 @@ import model.DoanhThuThang;
  *
  * @author admin
  */
-public class ThongKeDoanhThuThangDAO extends DAO {
+public class ThongKeDoanhThuThangDAO extends DAO implements  ThongKeDoanhThuThang{
 
     private static final String COL_THANG = "thang";
     private static final String COL_DOANH_THU = "doanhThu";
@@ -24,6 +24,7 @@ public class ThongKeDoanhThuThangDAO extends DAO {
         super();
     }
 
+    @Override
     public ArrayList<DoanhThuThang> getDoanhThuThang() {
         ArrayList<DoanhThuThang> listDoanhThuThang = new ArrayList<>();
 
